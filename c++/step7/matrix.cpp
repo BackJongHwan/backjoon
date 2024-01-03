@@ -4,7 +4,8 @@ int main()
 {
     int m, n;
     std::cin >> m >> n;
-    int **a, **b = new int*[m];
+    int **a = new int*[m];
+    int **b = new int*[m];
 
     for(int i = 0; i < m; i++)
     {
@@ -39,6 +40,14 @@ int main()
         }
         std::cout<< '\n';
     }
+    
+    for(int i = 0; i < m; i++)
+    {
+        delete a[i];
+        delete b[i];
+    }
+    delete []a;
+    delete []b;
 
 
 }
