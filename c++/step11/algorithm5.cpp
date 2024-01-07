@@ -3,8 +3,7 @@ using namespace std;
 
 int main()
 {
-    unsigned int n;
+    long int n;
     cin >> n;
-    cout <<n *(n-1)/2 <<'\n'<<2<<endl;
-
+    cout<<n * n * n <<'\n'<<3<<endl;
 }
