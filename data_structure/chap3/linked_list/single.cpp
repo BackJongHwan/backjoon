@@ -52,3 +52,4 @@ void StringLinkedList::removeFront()
     delete head;
     head = temp;
 }
+
