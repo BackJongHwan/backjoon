@@ -1,3 +1,4 @@
+
 #include<iostream>
 #include<vector>
 using  std::vector;
@@ -57,12 +58,6 @@ NodeList<E>::Iterator<R>::Iterator(Node<R> *u)
 {   v = u;  }
 
 
-template<typename E>
-template<typename R>
-NodeList<E>::Iterator<R>::Iterator()
-{
-    v = nullptr;
-}
 
 template<typename E>
 template<typename R>
