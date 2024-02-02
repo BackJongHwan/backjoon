@@ -1,25 +1,14 @@
 #include<iostream>
+
 template<typename E>
 class stack{
 public:
     stack()
-        :element(new E[capacity]), t(-1), capacity(100){}
-
+        :element(new E[10000]), t(-1){}
     ~stack()
-    {    delete element; }
-    void push(E &e)
+    {    delete[] element; }
+    void push(const E&e)
     {
-        if(size() == capacity)
-        {
-            capacity *= 2;
-            E *temp = new E[capacity];
-            for(int i = 0; i < size(); i++)
-            {
-                temp[i] = element[i];
-            }
-            delete element;
-            temp = element;
-        }
         element[++t] = e;
     }
     void pop()
@@ -40,14 +29,14 @@ public:
     {
         return (t < 0);
     }
-    E& top() const
+    int top() const
     {
-        return element[t];
+        if(empty()) return -1;
+        else return element[t];
     }
 private:
     E *element;
     int t;
-    int capacity;
 };
 
 int main(){
