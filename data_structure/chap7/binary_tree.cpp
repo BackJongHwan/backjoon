@@ -3,7 +3,7 @@
 
 typedef int Elem;
 
-class BinaryTree{
+class LinkedBinaryTree{
 protected:
     struct Node
     {
@@ -63,32 +63,69 @@ bool LinkedBinaryTree::empty() const
     return(n == 0);
 }
 
-Position LinkedBinaryTree::root() const
+LinkedBinaryTree::Position LinkedBinaryTree::root() const
 {
     return Position(_root);
 }
 
-PositionList LinkedBinaryTree::positions() const
+LinkedBinaryTree::PositionList LinkedBinaryTree::positions() const
 {
-    
+    PositionList pl;
+    preorder(_root, pl);
+    return pl;
 }
 
 void LinkedBinaryTree::addRoot()
 {
-
+    if(_root != NULL) return;
+    _root = new Node;
+    n = 1;
 }
 
 void LinkedBinaryTree::expandExternal(const Position &p)
 {
-
+    if(p.isExternal())
+    {
+        Node *v = p.v;
+        v->left = new Node; v->left->par = v;
+        v->right = new Node; v->right->par = v;
+        n += 2;
+    }
 }
 
-Position LinkedBinaryTree::removeAboveExteranl(const Position &p)
+LinkedBinaryTree::Position LinkedBinaryTree::removeAboveExteranl(const Position &p)
 {
-
+    if(p.isExternal())
+    {
+        Node *w = p.v;
+        Node *v = w->par;
+        Node *sib = (v->left == w ? v->right : v->left);
+        if(v->par == NULL){
+            _root = sib;
+            sib->par = NULL;
+        }
+        else{
+            Node *grandpar = w->par;
+            if(v == grandpar->left){
+                grandpar->left = sib;
+            }
+            else{
+                grandpar->right = sib;
+            }
+            sib->par = grandpar;
+        }
+        delete w; delete v;
+        n -= 2;
+        return Position(sib);
+    }
+    return 0;
 }
 
-void LinkedBinaryTree::preorder(Node *v, PositionList &pl)
+void LinkedBinaryTree::preorder(Node *v, PositionList &pl) const
 {
-
+    pl.push_back(Position(v));
+    if(v->left != NULL)
+        preorder(v->left, pl);
+    if(v->right != NULL)
+        preorder(v->right, pl);
 }
