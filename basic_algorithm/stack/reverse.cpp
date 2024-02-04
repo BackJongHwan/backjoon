@@ -8,7 +8,7 @@ int main()
     int n;
     string s;
     cin>>n; stack<char> stack;
-    cin.ignore();
+    cin.ignore();  
     for(int i = 0; i < n ; i++)
     {
         getline(cin, s);
