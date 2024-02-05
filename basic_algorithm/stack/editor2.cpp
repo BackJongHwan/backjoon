@@ -1,67 +1,54 @@
 #include<iostream>
 #include<string>
+#include<deque>
 using namespace std;
 
-typedef char E;
-
-class Node{
-private:
-    E element;
-    Node *next;
-    Node *prev;
-    friend class DoubleLinkedList;
-};
-
-class DoubleLinkedList{
-public:
-    DoubleLinkedList(){
-        head = new Node;
-        trailer = new Node;
-        head->next = trailer;
-        trailer->prev = head;
-        (*cursor) = head;
-    }
-
-    void left(){
-        
-    }
-
-    void right(){
-
-    }
-
-    void Delete(){
-
-    }
-
-    void add(const char& ch)
-    {
-
-    }
-private:
-    Node *head;
-    Node *trailer;
-    Node **cursor;
-};
 
 int main()
 {
-    string str;
-    char cmd;
-    int n;
+    deque<char> D_left;
+    deque<char> D_right;
+    string str; int n; char cmd;
     cin >> str;
     cin >> n;
+    for(int i = 0; i < str.size(); i++)
+    {
+        D_left.push_back(str[i]);
+    }
+
     for(int i = 0; i < n; i++)
     {
         cin >> cmd;
         if(cmd == 'L'){
-
+            if(!D_left.empty())
+            {
+                D_right.push_back(D_left.back());
+                D_left.pop_back();
+            }
         }else if(cmd == 'D'){
+            if(!D_right.empty()){
+                D_left.push_back(D_right.back());
+                D_right.pop_back();
+            }
         }else if(cmd == 'B'){
+            if(!D_left.empty())
+                D_left.pop_back();
         }else if(cmd == 'P'){
             char ch;
             cin >> ch;
+            D_left.push_back(ch);
         }
     }
+    while(!D_left.empty())
+    {
+        cout<<D_left.front();
+        D_left.pop_front();
+    }
+    while(!D_right.empty())
+    {
+        cout<<D_right.back();
+        D_right.pop_back();
+    }
+    cout<<'\n';
     return 0;
 }
