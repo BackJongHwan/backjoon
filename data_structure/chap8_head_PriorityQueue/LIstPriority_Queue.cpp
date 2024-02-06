@@ -18,10 +18,12 @@ template<typename E, typename C>
 int ListPriorityQueue<E, C>::size() const{
     return L.size();
 }
+
 template<typename E, typename C>
 bool ListPriorityQueue<E, C>::empty() const{
     return L.empty();
 }
+
 template<typename E, typename C>
 void ListPriorityQueue<E, C>::insert(const E& e){
     typename std::list<E>::iterator p;
@@ -29,10 +31,12 @@ void ListPriorityQueue<E, C>::insert(const E& e){
     while(p != L.end() && !isLess(e, *p))++p;
     L.insert(p, e);
 }
+
 template<typename E, typename C>
 void ListPriorityQueue<E, C>::removeMin(){
     L.pop_front();
 }
+
 template<typename E, typename C>
 E& ListPriorityQueue::min() const{
     return L.front();
