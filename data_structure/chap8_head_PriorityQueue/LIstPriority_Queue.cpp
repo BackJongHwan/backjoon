@@ -41,3 +41,9 @@ template<typename E, typename C>
 E& ListPriorityQueue::min() const{
     return L.front();
 }
+
+int main(){
+    return 0;
+}
+
+
