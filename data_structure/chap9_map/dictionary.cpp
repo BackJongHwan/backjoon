@@ -1,4 +1,5 @@
 #include "hash.cpp"
+
 template<typename K, typename V,typename H>
 class HashDict : public HashMap<K, V, H>{
 public:
@@ -19,3 +20,24 @@ public:
     Range findAll(const K& k);
     Iterator insert(const K&k, const V& v);
 };
+
+template<typename K, typename V, typename H>
+HashDict<K, V, H>::HashDict(int capacity)
+    :HashMap<K, V, H>(capacity){}
+
+template<typename K, typename V, typename H>
+typename HashDict<K, V, H>::Iterator HashDict<K, V, H>::insert(const K& k, const V&v){
+    Iterator p = finder(k);
+    Iterator q = inserter(p, Entry(k, v));
+}
+
+template<typename K, typename V, typename H>
+typename HashDict<K, V, H>::Range HashDict<K, V, H>::findAll(const K& k)
+{
+    Iterator p = finder(k);
+    Iterator q = p;
+    while(!endofBkt(q) &&(*q).key() == (*p).key())
+        ++q;
+    return Range(p, q);
+}
+
