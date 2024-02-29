@@ -105,7 +105,7 @@ LinkedBinaryTree::Position LinkedBinaryTree::removeAboveExteranl(const Position 
             sib->par = NULL;
         }
         else{
-            Node *grandpar = w->par;
+            Node *grandpar = v->par;
             if(v == grandpar->left){
                 grandpar->left = sib;
             }
