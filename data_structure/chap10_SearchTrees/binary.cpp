@@ -1,4 +1,5 @@
 #include<list>
+
 template<typename E>
 class BinaryTree{
 protected:
@@ -274,4 +275,29 @@ template<typename E>
 void SearchTree<E>::erase(const Iterator& p)
 {
     eraser(p.v);
+}
+
+template<typename E>
+SearchTree<E>::TPos SearchTree<E>::restructure(const TPos &x)
+{
+    TPos y = x.parent();
+    TPos z = y.parent();
+    TPos a, b, c;
+    if(y.left() == x){
+        if(z.left() == y)
+        {
+            a = x; b = y; c = z;
+        }
+        else{
+            a = z; b = x; c = y;
+        }
+    }else{
+        if(z.left() == y)
+        {
+            a = y; b = x; c = z;
+        }else{
+            a = z; b = y; c = x;
+        }
+    }
+
 }
