@@ -14,17 +14,9 @@ int main()
     int arr[n];
     int result[n];
     for(i = 0; i < n; i++)
-        result[i] = -1;
-    for(i = 0; i < n; i++)
         cin >> arr[i];
-    cut_rob2(arr, result ,n );
-    int max = 0;
-    for(i = 0; i < n; i++)
-    {
-        if(max < result[i])
-            max = result[i];
-    }
-    cout<<max<<'\n';
+    cut_rob2(arr,result,n);
+    cout<<result[n - 1]<<'\n';
     return 0;
 }
 /*solve recursively not memorization*/
@@ -37,8 +29,17 @@ int cut_rob(int arr[], int n)
         q = max(q, arr[i] + cut_rob(arr, n - (i + 1)));
     return q;
 }
-//solve using memorazation
-void cut_rob2(int arr[], int result[], int n)
+//solve bottom-up
+void cut_rob2(int arr[], int r[],int n)
 {
-    int i;
+    int i, j, q;
+    r[0] = 0;
+    for(i = 0; i < n; i++){
+        q = -1;
+        for(j = 0; j <= i; j++)
+        {
+            q = max(q, arr[j] + r[i - j]);
+        }
+        r[i] = q;
+    }
 }
