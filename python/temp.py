@@ -1,16 +1,18 @@
 result = '?'
 str = input()
-max = [[], 0]
+str = str.upper()
+frq_list = []
+for _ in range(ord('A'), ord('Z') + 1):
+    frq_list.append(0)
 for i in range(len(str)):
-    char = str[i].upper()
-    if(str[i] in max[0]):
-        continue
-    else:
-        frq = str.count(str[i])
-        if(max[1] < frq):
-            max[0].append(str[i])
-            max[1] = frq
-            result = str[i]
-        elif(max[1] == frq):
-            result = '?'
+    frq_list[ord(str[i]) - ord('A')] += 1
+max_frq = max(frq_list)
+max_count = 0
+for i in range(len(frq_list)):
+    if(frq_list[i] == max_frq):
+        max_count += 1
+        result = chr(i + ord('A'))
+        if(max_count != 1):
+            result ='?'
+            break
 print(result)
