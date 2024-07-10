@@ -4,7 +4,6 @@
 import sys
 input = sys.stdin.readline
 
-'''
 n = int(input())
 k = int(n ** 0.5)
 num_list = set() 
@@ -29,4 +28,21 @@ else:
             break
     if not found:
         print(4)
+#using dp...
 '''
+n = int(input())
+k = int(n ** 0.5)
+result = [4] * (n + 1)
+result[0] = 0
+squares = [i ** 2 for i in range(1, k + 1)]
+
+for i in range(1, n + 1):
+    for num in squares:
+        if i < num:
+            break
+        result[i] = min(result[i] , result[i - num] + 1)
+        if(result[i] == 1):
+            break
+print(result[n])
+'''
+#using bfs
