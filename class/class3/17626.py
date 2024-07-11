@@ -3,7 +3,7 @@
 
 import sys
 input = sys.stdin.readline
-
+'''
 n = int(input())
 k = int(n ** 0.5)
 num_list = set() 
@@ -28,6 +28,7 @@ else:
             break
     if not found:
         print(4)
+'''
 #using dp...
 '''
 n = int(input())
@@ -46,3 +47,31 @@ for i in range(1, n + 1):
 print(result[n])
 '''
 #using bfs
+from collections import deque
+def bfs(n):
+    if(n == 1):
+        return 1
+    k = int(n ** 0.5)
+    squares = [i ** 2 for i in range(1, k + 1)]
+    level = 0
+    q = deque([n])
+    visited = set()
+    while q:
+        level += 1
+        for _ in range(len(q)):
+            current_value = q.popleft()
+            for num in squares:
+                value = current_value - num
+                if(value < 0):
+                    break
+                elif(value == 0):
+                    return level
+                else:
+                    if value not in visited:
+                        visited.add(value)
+                        q.append(value)
+    return level
+
+n = int(input())
+result = bfs(n)
+print(result)
