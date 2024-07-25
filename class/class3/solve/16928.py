@@ -1,42 +1,38 @@
-#n = 1000, m = 1000 -> O(n^2)일듯?
 import sys
 from collections import deque
 input = sys.stdin.readline
+def bfs(n, m, ladder, snake):
+    dp = [float("inf")] * 101
+    dp[1] = 0
+    visited = [False] * 101
+    visited[1] = True
+    queue = deque([1])
 
-def bfs(board, visited, result, target_row, target_col):
-    bfs_queue = deque([(target_row, target_col, 0)])
-    while bfs_queue:
-        row, col, step = bfs_queue.popleft()
-        result[row][col] = step
-        for dx, dy in [(1,0), (-1,0), (0, 1), (0, -1)]:
-            if(0<= row + dx < n and 0 <= col + dy < m):
-                if(board[row + dx][col + dy] == 1 and visited[row + dx][col + dy] == 0):
-                    visited[row+dx][col + dy] = 1
-                    bfs_queue.append((row + dx, col+dy, step + 1))
+    while queue:
+        current = queue.popleft()
+        visited[current] = True
+        for dice in range(1, 7):
+            next_pos = current + dice
+            if next_pos not in visited:
+                if next_pos > 100:
+                    continue
+                if next_pos in ladder:
+                    next_pos = ladder[next_pos]
+                elif next_pos in snake:
+                    next_pos = snake[next_pos]
+            if dp[next_pos] > dp[current] + 1:
+                dp[next_pos] = dp[current] + 1
+                queue.append(next_pos)
+    return dp[100]
 
-n, m = map(int, input().split())
-board = []
-visted = [[0] * m for _ in range(n)]
-result = [[0] * m for _ in range(n)]
+n, m = map(int ,input().split())
+ladder = {}
+snake = {}
 for _ in range(n):
-    board.append(list(map(int, input().split())))
-
-target_row, target_col = 0, 0
-for row in range(n):
-    check = 0
-    for col in range(m):
-        if(board[row][col] == 2):
-            target_row, target_col = row, col
-            # visted[target_row][target_col] = 1
-            result[target_row][target_col] = 0
-            check = 1
-            break
-    if check == 1:
-        break
-bfs(board, visted, result, target_row, target_col)
-for row in range(n):
-    for col in range(m):
-        if(board[row][col] == 1 and result[row][col] == 0):
-            result[row][col] = -1
-for i in range(n):
-    print(" ".join(map(str, result[i])))
+    start, end = map(int ,input().split())
+    ladder[start] = end
+for _ in range(m):
+    start, end = map(int ,input().split())
+    snake[start] = end
+result = bfs(n, m, ladder, snake)
+print(result)
