@@ -44,5 +44,15 @@
 나머지 법칙 = (AB) % c = (A % C)(B % C)
 '''
 def divide(a, b):
-    if(b == 1)
+    if b == 0:
+        return 1  # a^0 = 1
+    if b == 1:
+        return a % c
+    half = divide(a, b // 2) % c
+    if b % 2 == 0:  # 짝수
+        return (half * half) % c
+    else:  # 홀수
+        return (half * half * (a % c)) % c
 a, b, c= map(int, input().split())
+result = divide(a, b)
+print(result)

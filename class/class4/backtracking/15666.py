@@ -24,8 +24,6 @@ def backtracking(k, idx):
         answer.append(num_list[i])
         backtracking(k + 1, i)
         answer.pop() #backtracking
-
-
 n, m = map(int, input().split())
 num_list = sorted(set(map(int, input().split())))
 answer = []
