@@ -11,13 +11,12 @@ def dijkstra(start, n):
         current_dist, current_node = heapq.heappop(pq)
         if distance[current_node] < current_dist:
             continue
-        if graph[current_node]:
-            for neighbor, weight in graph[current_node]:
-                new_dist = current_dist + weight
-                if new_dist < distance[neighbor]:
-                    distance[neighbor] = new_dist
-                    previous[neighbor] = current_node
-                    heapq.heappush(pq,  (new_dist, neighbor))
+        for neighbor, weight in graph.get(current_node, []): 
+            new_dist = current_dist + weight
+            if new_dist < distance[neighbor]:
+                distance[neighbor] = new_dist
+                previous[neighbor] = current_node
+                heapq.heappush(pq,  (new_dist, neighbor))
     return distance, previous
 def make_path(previous, start, end):
     path = []
@@ -104,7 +103,6 @@ else:
 # Path 1 -> v1 -> v2 -> N
 if path_1_v1 and path_v1_v2 and path_v2_n:
     result = min(result, distance_1[v1] + distance_v1[v2] + distance_v2[n - 1])
-
 # Path 1 -> v2 -> v1 -> N
 if path_1_v2 and path_v1_v2 and path_v1_n:
     result = min(result, distance_1[v2] + distance_v2[v1] + distance_v1[n - 1])
