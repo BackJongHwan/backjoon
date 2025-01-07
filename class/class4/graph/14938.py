@@ -14,6 +14,7 @@ for _ in range(r):
     a -= 1
     b -= 1
     graph[a][b] = min(graph[a][b], l)
+    graph[b][a] = min(graph[b][a], l)
 
 for k in range(n):
     for i in range(n):
@@ -26,5 +27,7 @@ for i in range(n):
     for j in range(n):
         if(graph[i][j] <= m):
             temp += n_list[j]
+    #         print(j + 1)
+    # print(temp)
     result = max(result, temp)
 print(result)
